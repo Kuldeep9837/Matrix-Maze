@@ -29,8 +29,8 @@ A desktop application featuring a first-person 3D ASCII labyrinth adventure game
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
-cd proje
+git clone git@github.com:ledoit/ASCII-Labyrinth-3D.git
+cd ASCII-Labyrinth-3D
 ```
 
 2. Install frontend dependencies:
@@ -103,8 +103,3 @@ The maze is generated using a recursive backtracking algorithm:
 3. Game state is updated (player position, rotation)
 4. Frame is rendered using raycasting
 5. ASCII frame is returned to frontend and displayed
-
-## License
-
-MIT
-
