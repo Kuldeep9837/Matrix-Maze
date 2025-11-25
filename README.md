@@ -1,4 +1,4 @@
-# ASCII 3D Labyrinth Adventure Game
+# Matrix Maze
 
 A desktop application featuring a first-person 3D ASCII labyrinth adventure game built with Rust, Tauri, and JavaScript.
 
@@ -29,8 +29,8 @@ A desktop application featuring a first-person 3D ASCII labyrinth adventure game
 
 1. Clone the repository:
 ```bash
-git clone git@github.com:ledoit/ASCII-Labyrinth-3D.git
-cd ASCII-Labyrinth-3D
+git clone git@github.com:ledoit/Matrix-Maze.git
+cd Matrix-Maze
 ```
 
 2. Install frontend dependencies:

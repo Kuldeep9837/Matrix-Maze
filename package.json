@@ -1,5 +1,6 @@
 {
-  "name": "ascii-labyrinth",
+  "_comment": "Game name: 'matrix-maze' - if changing, also update src/constants.js, Cargo.toml, tauri.conf.json, and index.html",
+  "name": "matrix-maze",
   "version": "1.0.0",
   "type": "module",
   "scripts": {

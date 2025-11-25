@@ -1,7 +1,8 @@
 {
-  "productName": "ASCII Labyrinth",
+  "_comment": "Game name: 'Matrix Maze' - if changing, also update src/constants.js, Cargo.toml, package.json, and index.html",
+  "productName": "Matrix Maze",
   "version": "1.0.0",
-  "identifier": "com.asciilabyrinth.app",
+  "identifier": "com.matrixmaze.app",
   "build": {
     "beforeDevCommand": "npm run dev",
     "beforeBuildCommand": "npm run build",
@@ -12,7 +13,7 @@
       {
         "fullscreen": false,
         "resizable": true,
-        "title": "ASCII Labyrinth",
+        "title": "Matrix Maze",
         "width": 1200,
         "height": 800
       }

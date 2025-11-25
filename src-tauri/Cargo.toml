@@ -1,7 +1,12 @@
 [package]
-name = "ascii-labyrinth"
+# Game name: "Matrix Maze" - if changing, also update:
+# - src/constants.js (GAME_NAME)
+# - src-tauri/tauri.conf.json (productName, title)
+# - package.json (name)
+# - index.html (title)
+name = "matrix-maze"
 version = "1.0.0"
-description = "ASCII 3D Labyrinth Adventure Game"
+description = "Matrix Maze - 3D ASCII Labyrinth Adventure Game"
 authors = ["you"]
 license = ""
 repository = ""
