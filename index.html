@@ -330,12 +330,12 @@
                     Choose your platform:
                 </p>
                 <div class="downloads">
-                    <a href="https://github.com/ledoit/Matrix-Maze/releases/download/v1.1.0/Matrix.Maze_1.1.0_aarch64.dmg" 
+                    <a href="#" 
                        class="download-btn" 
                        id="download-macos"
                        title="Download for macOS">
                         <span class="platform">🍎 macOS</span>
-                        <span class="size">Download v1.1.0</span>
+                        <span class="size" id="macos-version">Loading...</span>
                     </a>
                     <a href="#" 
                        class="download-btn coming-soon" 
@@ -438,6 +438,40 @@
 
         // Initialize
         createMatrixRain();
+
+        // Fetch latest release from GitHub API and update download link
+        async function updateDownloadLinks() {
+            try {
+                const response = await fetch('https://api.github.com/repos/ledoit/Matrix-Maze/releases/latest');
+                if (!response.ok) throw new Error('Failed to fetch release');
+                
+                const release = await response.json();
+                const version = release.tag_name; // e.g., "v1.1.0"
+                const versionNum = version.replace('v', ''); // e.g., "1.1.0"
+                
+                // Find the macOS DMG asset
+                const macosAsset = release.assets.find(asset => 
+                    asset.name.includes('.dmg') && asset.name.includes('aarch64')
+                );
+                
+                if (macosAsset) {
+                    const macosLink = document.getElementById('download-macos');
+                    const macosVersion = document.getElementById('macos-version');
+                    macosLink.href = macosAsset.browser_download_url;
+                    macosVersion.textContent = `Download ${versionNum}`;
+                }
+            } catch (error) {
+                console.error('Error fetching latest release:', error);
+                // Fallback to a default version if API fails
+                const macosLink = document.getElementById('download-macos');
+                const macosVersion = document.getElementById('macos-version');
+                macosLink.href = 'https://github.com/ledoit/Matrix-Maze/releases/latest';
+                macosVersion.textContent = 'Download Latest';
+            }
+        }
+
+        // Update download links on page load
+        updateDownloadLinks();
     </script>
 </body>
 </html>
