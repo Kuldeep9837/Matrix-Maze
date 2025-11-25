@@ -219,6 +219,10 @@
             cursor: not-allowed;
         }
 
+        .download-btn:not(.coming-soon):hover {
+            opacity: 1;
+        }
+
         /* Footer */
         footer {
             text-align: center;
@@ -294,7 +298,7 @@
     ╚═╝     ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝╚═╝  ╚═╝    ╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝╚══════╝
             </div>
             <h1>MATRIX MAZE</h1>
-            <p class="tagline">Navigate the labyrinth, escape the Matrix.</p>
+            <p class="tagline">Navigate the labyrinth, escape the matrix.</p>
         </header>
 
         <div class="main-content">
@@ -326,17 +330,26 @@
                     Choose your platform:
                 </p>
                 <div class="downloads">
-                    <a href="#" class="download-btn coming-soon" title="Coming soon">
+                    <a href="https://github.com/ledoit/Matrix-Maze/releases/download/v1.0.0/matrix-maze_1.0.0_x64-setup.exe" 
+                       class="download-btn" 
+                       id="download-windows"
+                       title="Download for Windows">
                         <span class="platform">🪟 Windows</span>
-                        <span class="size">Coming Soon</span>
+                        <span class="size">Download</span>
                     </a>
-                    <a href="#" class="download-btn coming-soon" title="Coming soon">
+                    <a href="https://github.com/ledoit/Matrix-Maze/releases/download/v1.0.0/matrix-maze_1.0.0_x64.dmg" 
+                       class="download-btn" 
+                       id="download-macos"
+                       title="Download for macOS">
                         <span class="platform">🍎 macOS</span>
-                        <span class="size">Coming Soon</span>
+                        <span class="size">Download</span>
                     </a>
-                    <a href="#" class="download-btn coming-soon" title="Coming soon">
+                    <a href="https://github.com/ledoit/Matrix-Maze/releases/download/v1.0.0/matrix-maze_1.0.0_amd64.AppImage" 
+                       class="download-btn" 
+                       id="download-linux"
+                       title="Download for Linux">
                         <span class="platform">🐧 Linux</span>
-                        <span class="size">Coming Soon</span>
+                        <span class="size">Download</span>
                     </a>
                 </div>
                 <p style="text-align: center; margin-top: 12px; margin-bottom: 0; color: #00cc00; font-size: 0.75em;">
