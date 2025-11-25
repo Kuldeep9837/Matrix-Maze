@@ -4,6 +4,7 @@ pub struct Maze {
     pub width: usize,
     pub height: usize,
     pub cells: Vec<Vec<bool>>, // true = wall, false = empty
+    pub start: (usize, usize), // Starting position
 }
 
 impl Maze {
@@ -12,6 +13,7 @@ impl Maze {
             width,
             height,
             cells: vec![vec![true; width]; height],
+            start: (1, 1), // Default, will be set in generate()
         };
         maze.generate();
         maze
@@ -52,6 +54,7 @@ impl Maze {
         self.cells[start.1][start.0] = false;
         visited.insert(start);
         stack.push(start);
+        self.start = start; // Store the start position
 
         // Track if we've reached the exit
         let mut exit_reached = false;

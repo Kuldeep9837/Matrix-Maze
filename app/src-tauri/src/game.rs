@@ -60,20 +60,8 @@ impl GameState {
         let exit_x = (maze.width - 2) as f64 + 0.5;
         let exit_y = (maze.height - 1) as f64 + 0.5;
         
-        // Find the actual start position (first empty cell from top-left)
-        let mut start = (1, 1);
-        for y in 1..maze.height - 1 {
-            for x in 1..maze.width - 1 {
-                if !maze.is_wall(x, y) {
-                    start = (x, y);
-                    break;
-                }
-            }
-            if !maze.is_wall(start.0, start.1) {
-                break;
-            }
-        }
-        
+        // Use the start position from maze generation
+        let start = maze.start;
         let end = (maze.width - 2, maze.height - 1); // Exit on bottom edge
         
         // Save maze map to file
