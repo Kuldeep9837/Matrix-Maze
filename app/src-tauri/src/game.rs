@@ -55,12 +55,25 @@ pub struct PlayerInput {
 
 impl GameState {
     pub fn new() -> Self {
-        let maze = Maze::new(7, 7); // Very small for testing
+        let maze = Maze::new(10, 10);
         // Exit is on the bottom edge of the maze (outer wall opening)
         let exit_x = (maze.width - 2) as f64 + 0.5;
         let exit_y = (maze.height - 1) as f64 + 0.5;
         
-        let start = (1, 1);
+        // Find the actual start position (first empty cell from top-left)
+        let mut start = (1, 1);
+        for y in 1..maze.height - 1 {
+            for x in 1..maze.width - 1 {
+                if !maze.is_wall(x, y) {
+                    start = (x, y);
+                    break;
+                }
+            }
+            if !maze.is_wall(start.0, start.1) {
+                break;
+            }
+        }
+        
         let end = (maze.width - 2, maze.height - 1); // Exit on bottom edge
         
         // Save maze map to file

@@ -22,19 +22,37 @@ impl Maze {
         let mut stack: Vec<(usize, usize)> = Vec::new();
         let mut visited: HashSet<(usize, usize)> = HashSet::new();
         
-        // Start at (1, 1) - ensure it's a path
-        let start = (1, 1);
         // Exit is on the bottom edge
         let exit = (self.width - 2, self.height - 1);
-        self.cells[start.1][start.0] = false;
-        visited.insert(start);
-        stack.push(start);
-
+        
+        // Randomly select a starting position (not too close to exit)
         let mut rng_seed = std::time::SystemTime::now()
             .duration_since(std::time::UNIX_EPOCH)
             .unwrap()
             .as_nanos() as u64;
         
+        // Pick a random valid starting position (avoid edges and exit area)
+        let mut start = (1, 1);
+        let mut attempts = 0;
+        loop {
+            rng_seed = rng_seed.wrapping_mul(1103515245).wrapping_add(12345);
+            let x = 1 + (rng_seed as usize % (self.width - 4));
+            rng_seed = rng_seed.wrapping_mul(1103515245).wrapping_add(12345);
+            let y = 1 + (rng_seed as usize % (self.height - 3)); // Avoid bottom row where exit is
+            
+            // Make sure it's not too close to exit
+            let dist_to_exit = ((x as f64 - exit.0 as f64).powi(2) + (y as f64 - exit.1 as f64).powi(2)).sqrt();
+            if dist_to_exit > 3.0 || attempts > 50 {
+                start = (x, y);
+                break;
+            }
+            attempts += 1;
+        }
+        
+        self.cells[start.1][start.0] = false;
+        visited.insert(start);
+        stack.push(start);
+
         // Track if we've reached the exit
         let mut exit_reached = false;
         
