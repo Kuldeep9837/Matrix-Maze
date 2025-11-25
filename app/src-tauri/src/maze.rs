@@ -5,6 +5,7 @@ pub struct Maze {
     pub height: usize,
     pub cells: Vec<Vec<bool>>, // true = wall, false = empty
     pub start: (usize, usize), // Starting position
+    pub exit: (usize, usize), // Exit position
 }
 
 impl Maze {
@@ -14,6 +15,7 @@ impl Maze {
             height,
             cells: vec![vec![true; width]; height],
             start: (1, 1), // Default, will be set in generate()
+            exit: (width - 2, height - 1), // Default, will be set in generate()
         };
         maze.generate();
         maze
@@ -24,23 +26,49 @@ impl Maze {
         let mut stack: Vec<(usize, usize)> = Vec::new();
         let mut visited: HashSet<(usize, usize)> = HashSet::new();
         
-        // Exit is on the bottom edge
-        let exit = (self.width - 2, self.height - 1);
-        
-        // Randomly select a starting position (not too close to exit)
+        // Randomly select exit position on one of the outer edges
         let mut rng_seed = std::time::SystemTime::now()
             .duration_since(std::time::UNIX_EPOCH)
             .unwrap()
             .as_nanos() as u64;
         
+        // Pick a random edge (0=top, 1=right, 2=bottom, 3=left)
+        rng_seed = rng_seed.wrapping_mul(1103515245).wrapping_add(12345);
+        let edge = rng_seed as usize % 4;
+        
+        let exit = match edge {
+            0 => { // Top edge
+                rng_seed = rng_seed.wrapping_mul(1103515245).wrapping_add(12345);
+                let x = 1 + (rng_seed as usize % (self.width - 2));
+                (x, 0)
+            },
+            1 => { // Right edge
+                rng_seed = rng_seed.wrapping_mul(1103515245).wrapping_add(12345);
+                let y = 1 + (rng_seed as usize % (self.height - 2));
+                (self.width - 1, y)
+            },
+            2 => { // Bottom edge
+                rng_seed = rng_seed.wrapping_mul(1103515245).wrapping_add(12345);
+                let x = 1 + (rng_seed as usize % (self.width - 2));
+                (x, self.height - 1)
+            },
+            _ => { // Left edge
+                rng_seed = rng_seed.wrapping_mul(1103515245).wrapping_add(12345);
+                let y = 1 + (rng_seed as usize % (self.height - 2));
+                (0, y)
+            },
+        };
+        self.exit = exit;
+        
+        // Randomly select a starting position (not too close to exit)
         // Pick a random valid starting position (avoid edges and exit area)
         let mut start = (1, 1);
         let mut attempts = 0;
         loop {
             rng_seed = rng_seed.wrapping_mul(1103515245).wrapping_add(12345);
-            let x = 1 + (rng_seed as usize % (self.width - 4));
+            let x = 1 + (rng_seed as usize % (self.width - 2));
             rng_seed = rng_seed.wrapping_mul(1103515245).wrapping_add(12345);
-            let y = 1 + (rng_seed as usize % (self.height - 3)); // Avoid bottom row where exit is
+            let y = 1 + (rng_seed as usize % (self.height - 2));
             
             // Make sure it's not too close to exit
             let dist_to_exit = ((x as f64 - exit.0 as f64).powi(2) + (y as f64 - exit.1 as f64).powi(2)).sqrt();
@@ -121,14 +149,26 @@ impl Maze {
         }
         
         // Create an actual opening in the outer wall at the exit
-        // Place exit on the bottom edge (y = height - 1)
-        let exit_x = exit.0;
-        let exit_y = self.height - 1;
-        // Make sure the exit cell and the wall opening are clear
-        self.cells[exit_y][exit_x] = false;
-        // Also clear the cell just before the exit to ensure path
-        if exit_y > 0 {
-            self.cells[exit_y - 1][exit_x] = false;
+        // Clear the exit cell and adjacent cell to create opening based on which edge
+        self.cells[exit.1][exit.0] = false;
+        
+        // Clear adjacent cell based on which edge the exit is on
+        if exit.1 == 0 { // Top edge - clear cell below
+            if exit.1 + 1 < self.height {
+                self.cells[exit.1 + 1][exit.0] = false;
+            }
+        } else if exit.0 == self.width - 1 { // Right edge - clear cell to the left
+            if exit.0 > 0 {
+                self.cells[exit.1][exit.0 - 1] = false;
+            }
+        } else if exit.1 == self.height - 1 { // Bottom edge - clear cell above
+            if exit.1 > 0 {
+                self.cells[exit.1 - 1][exit.0] = false;
+            }
+        } else if exit.0 == 0 { // Left edge - clear cell to the right
+            if exit.0 + 1 < self.width {
+                self.cells[exit.1][exit.0 + 1] = false;
+            }
         }
     }
 

@@ -21,6 +21,7 @@ pub struct MazeData {
     pub height: usize,
     pub cells: Vec<Vec<bool>>,
     pub start: (usize, usize),
+    pub exit: (usize, usize),
 }
 
 impl From<&Maze> for MazeData {
@@ -30,6 +31,7 @@ impl From<&Maze> for MazeData {
             height: maze.height,
             cells: maze.cells.clone(),
             start: maze.start,
+            exit: maze.exit,
         }
     }
 }
@@ -41,6 +43,7 @@ impl From<MazeData> for Maze {
             height: data.height,
             cells: data.cells,
             start: data.start,
+            exit: data.exit,
         }
     }
 }
@@ -59,13 +62,13 @@ pub struct PlayerInput {
 impl GameState {
     pub fn new() -> Self {
         let maze = Maze::new(10, 10);
-        // Exit is on the bottom edge of the maze (outer wall opening)
-        let exit_x = (maze.width - 2) as f64 + 0.5;
-        let exit_y = (maze.height - 1) as f64 + 0.5;
+        // Use the random exit position from maze generation
+        let exit_x = maze.exit.0 as f64 + 0.5;
+        let exit_y = maze.exit.1 as f64 + 0.5;
         
         // Use the start position from maze generation
         let start = maze.start;
-        let end = (maze.width - 2, maze.height - 1); // Exit on bottom edge
+        let end = maze.exit;
         
         // Save maze map to file
         Self::save_maze_map(&maze, start, end);
